@@ -4,26 +4,30 @@ using System.Windows.Forms;
 
 namespace BulbExample
 {
-	public partial class ExampleForm : Form {
+    public partial class ExampleForm : Form
+    {
 
-		private int _blink = 0;
-		
-		public ExampleForm() {
-			InitializeComponent();
-		}
+        private int _blink = 0;
 
-		// Turn the bulb On or Off
-		private void LedBulb_Click(object sender, EventArgs e) {
-			((LedBulb)sender).On = !((LedBulb)sender).On;
-		}
+        public ExampleForm()
+        {
+            InitializeComponent();
+        }
 
-		private void LedBulb7_Click(object sender, EventArgs e) {
-			if (_blink == 0) 
-				_blink = 500;
-			else 
-				_blink = 0;
+        // Turn the bulb On or Off
+        private void LedBulb_Click(object sender, EventArgs e)
+        {
+            ((LedBulb)sender).On = !((LedBulb)sender).On;
+        }
 
-			((LedBulb)sender).Blink(_blink);
-		}
-	}
+        private void LedBulb7_Click(object sender, EventArgs e)
+        {
+            if (_blink == 0)
+                _blink = 500;
+            else
+                _blink = 0;
+
+            ((LedBulb)sender).Blink(_blink);
+        }
+    }
 }

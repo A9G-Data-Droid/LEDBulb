@@ -63,16 +63,16 @@ namespace Bulb
 		/// Colors for if the bulb is on or off
 		/// </summary>
 		private Color OnColor => On ? this.Color : Color.FromArgb(150, DarkColor);
-        private Color OffColor => On ? DarkColor : DarkDarkColor;
+		private Color OffColor => On ? DarkColor : DarkDarkColor;
 
-        // Calculate the dimensions of the bulb
-        private int BulbWidth => Width - (Padding.Left + Padding.Right);
-        private int BulbHeight => Height - (Padding.Top + Padding.Bottom);
+		// Calculate the dimensions of the bulb
+		private int BulbWidth => Width - (Padding.Left + Padding.Right);
+		private int BulbHeight => Height - (Padding.Top + Padding.Bottom);
 
-        /// <summary>
+		/// <summary>
 		/// Diameter is the lesser of width and height, Subtract 1 pixel so ellipse doesn't get cut off
 		/// </summary>
-        private int Diameter => Math.Max(Math.Min(BulbWidth, BulbHeight) - 1, 1);
+		private int Diameter => Math.Max(Math.Min(BulbWidth, BulbHeight) - 1, 1);
 
 
 
@@ -132,46 +132,46 @@ namespace Bulb
 		}
 
 
-        /// <summary>
-        /// Renders the control to an image
-        /// </summary>
-        private void DrawControl(Graphics g)
-        {
-            // Draw the background ellipse
-            var canvasRectangle = new Rectangle(Padding.Left, Padding.Top, Diameter, Diameter);
-            g.FillEllipse(new SolidBrush(OffColor), canvasRectangle);
+		/// <summary>
+		/// Renders the control to an image
+		/// </summary>
+		private void DrawControl(Graphics g)
+		{
+			// Draw the background ellipse
+			var canvasRectangle = new Rectangle(Padding.Left, Padding.Top, Diameter, Diameter);
+			g.FillEllipse(new SolidBrush(OffColor), canvasRectangle);
 
-            // Draw the glow gradient
-            var glowPath = new GraphicsPath();
-            glowPath.AddEllipse(canvasRectangle);
-            var glowBrush = new PathGradientBrush(glowPath)
-            {
-                CenterColor = OnColor,
-                SurroundColors = new Color[] { Color.FromArgb(0, OnColor) }
-            };
+			// Draw the glow gradient
+			var glowPath = new GraphicsPath();
+			glowPath.AddEllipse(canvasRectangle);
+			var glowBrush = new PathGradientBrush(glowPath)
+			{
+				CenterColor = OnColor,
+				SurroundColors = new Color[] { Color.FromArgb(0, OnColor) }
+			};
 
-            g.FillEllipse(glowBrush, canvasRectangle);
+			g.FillEllipse(glowBrush, canvasRectangle);
 
-            // Don't paint outside the circle!
-            g.Clip = new Region(glowPath);
+			// Don't paint outside the circle!
+			g.Clip = new Region(glowPath);
 
-            // Draw the white reflection gradient
-            var offset = Convert.ToInt32(Diameter * .15F);
-            var reflectionDiameter = Convert.ToInt32(canvasRectangle.Width * .8F);
-            var whiteRect = new Rectangle(canvasRectangle.X - offset, canvasRectangle.Y - offset, reflectionDiameter, reflectionDiameter);
-            var reflectionPath = new GraphicsPath();
-            reflectionPath.AddEllipse(whiteRect);
-            var reflectionBrush = new PathGradientBrush(reflectionPath)
-            {
-                CenterColor = _reflectionColor,
-                SurroundColors = _surroundColor
-            };
+			// Draw the white reflection gradient
+			var offset = Convert.ToInt32(Diameter * .15F);
+			var reflectionDiameter = Convert.ToInt32(canvasRectangle.Width * .8F);
+			var whiteRect = new Rectangle(canvasRectangle.X - offset, canvasRectangle.Y - offset, reflectionDiameter, reflectionDiameter);
+			var reflectionPath = new GraphicsPath();
+			reflectionPath.AddEllipse(whiteRect);
+			var reflectionBrush = new PathGradientBrush(reflectionPath)
+			{
+				CenterColor = _reflectionColor,
+				SurroundColors = _surroundColor
+			};
 
-            g.FillEllipse(reflectionBrush, whiteRect);
+			g.FillEllipse(reflectionBrush, whiteRect);
 
-            // Draw the border
-            g.SetClip(canvasRectangle);
-            if (On) g.DrawEllipse(new Pen(Color.FromArgb(85, Color.Black), 1F), canvasRectangle);
-        }
-    }
+			// Draw the border
+			g.SetClip(canvasRectangle);
+			if (On) g.DrawEllipse(new Pen(Color.FromArgb(85, Color.Black), 1F), canvasRectangle);
+		}
+	}
 }
