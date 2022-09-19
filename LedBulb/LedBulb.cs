@@ -4,6 +4,8 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
+
+
 namespace Bulb
 {
 
@@ -16,13 +18,11 @@ namespace Bulb
 	public partial class LedBulb : Control
 	{
 
-		#region Public and Private Members
-
 		private Color _color;
 		private bool _on = true;
-		private Color _reflectionColor = Color.FromArgb(180, 255, 255, 255);
-		private Color[] _surroundColor = new Color[] { Color.FromArgb(0, 255, 255, 255) };
-		private Timer _timer = new Timer();
+		private readonly Color _reflectionColor = Color.FromArgb(180, 255, 255, 255);
+		private readonly Color[] _surroundColor = new Color[] { Color.FromArgb(0, 255, 255, 255) };
+		private readonly Timer _timer = new();
 
 		/// <summary>
 		/// Gets or Sets the color of the LED light
@@ -59,10 +59,26 @@ namespace Bulb
 			set { _on = value; Invalidate(); }
 		}
 
-		#endregion
+		/// <summary>
+		/// Colors for if the bulb is on or off
+		/// </summary>
+		private Color OnColor => On ? this.Color : Color.FromArgb(150, DarkColor);
+        private Color OffColor => On ? DarkColor : DarkDarkColor;
 
-		#region Constructor
+        // Calculate the dimensions of the bulb
+        private int BulbWidth => Width - (Padding.Left + Padding.Right);
+        private int BulbHeight => Height - (Padding.Top + Padding.Bottom);
 
+        /// <summary>
+		/// Diameter is the lesser of width and height, Subtract 1 pixel so ellipse doesn't get cut off
+		/// </summary>
+        private int Diameter => Math.Max(Math.Min(BulbWidth, BulbHeight) - 1, 1);
+
+
+
+		/// <summary>
+		/// Constructor to get a new bulb!
+		/// </summary>
 		public LedBulb()
 		{
 			SetStyle(ControlStyles.DoubleBuffer
@@ -77,9 +93,7 @@ namespace Bulb
 			);
 		}
 
-		#endregion
 
-		#region Methods
 
 		/// <summary>
 		/// Handles the Paint event for this UserControl
@@ -87,66 +101,21 @@ namespace Bulb
 		protected override void OnPaint(PaintEventArgs e)
 		{
 			// Create an offscreen graphics object for double buffering
-			Bitmap offScreenBmp = new Bitmap(ClientRectangle.Width, ClientRectangle.Height);
-			using (Graphics g = Graphics.FromImage(offScreenBmp))
-			{
-				g.SmoothingMode = SmoothingMode.HighQuality;
-				// Draw the control
-				drawControl(g, On);
-				// Draw the image to the screen
-				e.Graphics.DrawImageUnscaled(offScreenBmp, 0, 0);
-			}
-		}
+			Bitmap offScreenBmp = new(ClientRectangle.Width, ClientRectangle.Height);
+			using Graphics g = Graphics.FromImage(offScreenBmp);
+			g.SmoothingMode = SmoothingMode.HighQuality;
 
-		/// <summary>
-		/// Renders the control to an image
-		/// </summary>
-		private void drawControl(Graphics g, bool on)
-		{
-			// Is the bulb on or off
-			Color lightColor = on ? Color : Color.FromArgb(150, DarkColor);
-			Color darkColor = on ? DarkColor : DarkDarkColor;
+			// Draw the control
+			DrawControl(g);
 
-			// Calculate the dimensions of the bulb
-			int width = Width - (Padding.Left + Padding.Right);
-			int height = Height - (Padding.Top + Padding.Bottom);
-			// Diameter is the lesser of width and height
-			int diameter = Math.Min(width, height);
-			// Subtract 1 pixel so ellipse doesn't get cut off
-			diameter = Math.Max(diameter - 1, 1);
-
-			// Draw the background ellipse
-			var rectangle = new Rectangle(Padding.Left, Padding.Top, diameter, diameter);
-			g.FillEllipse(new SolidBrush(darkColor), rectangle);
-
-			// Draw the glow gradient
-			var path = new GraphicsPath();
-			path.AddEllipse(rectangle);
-			var pathBrush = new PathGradientBrush(path);
-			pathBrush.CenterColor = lightColor;
-			pathBrush.SurroundColors = new Color[] { Color.FromArgb(0, lightColor) };
-			g.FillEllipse(pathBrush, rectangle);
-
-			// Draw the white reflection gradient
-			var offset = Convert.ToInt32(diameter * .15F);
-			var diameter1 = Convert.ToInt32(rectangle.Width * .8F);
-			var whiteRect = new Rectangle(rectangle.X - offset, rectangle.Y - offset, diameter1, diameter1);
-			var path1 = new GraphicsPath();
-			path1.AddEllipse(whiteRect);
-			var pathBrush1 = new PathGradientBrush(path);
-			pathBrush1.CenterColor = _reflectionColor;
-			pathBrush1.SurroundColors = _surroundColor;
-			g.FillEllipse(pathBrush1, whiteRect);
-
-			// Draw the border
-			g.SetClip(ClientRectangle);
-			if (On) g.DrawEllipse(new Pen(Color.FromArgb(85, Color.Black), 1F), rectangle);
+			// Draw the image to the screen
+			e.Graphics.DrawImageUnscaled(offScreenBmp, 0, 0);
 		}
 
 		/// <summary>
 		/// Causes the Led to start blinking
 		/// </summary>
-		/// <param name="milliseconds">Number of milliseconds to blink for. 0 stops blinking</param>
+		/// <param name="milliseconds">Number of milliseconds to blink for. 0 stops blinking.</param>
 		public void Blink(int milliseconds)
 		{
 			if (milliseconds > 0)
@@ -162,6 +131,47 @@ namespace Bulb
 			}
 		}
 
-		#endregion
-	}
+
+        /// <summary>
+        /// Renders the control to an image
+        /// </summary>
+        private void DrawControl(Graphics g)
+        {
+            // Draw the background ellipse
+            var canvasRectangle = new Rectangle(Padding.Left, Padding.Top, Diameter, Diameter);
+            g.FillEllipse(new SolidBrush(OffColor), canvasRectangle);
+
+            // Draw the glow gradient
+            var glowPath = new GraphicsPath();
+            glowPath.AddEllipse(canvasRectangle);
+            var glowBrush = new PathGradientBrush(glowPath)
+            {
+                CenterColor = OnColor,
+                SurroundColors = new Color[] { Color.FromArgb(0, OnColor) }
+            };
+
+            g.FillEllipse(glowBrush, canvasRectangle);
+
+            // Don't paint outside the circle!
+            g.Clip = new Region(glowPath);
+
+            // Draw the white reflection gradient
+            var offset = Convert.ToInt32(Diameter * .15F);
+            var reflectionDiameter = Convert.ToInt32(canvasRectangle.Width * .8F);
+            var whiteRect = new Rectangle(canvasRectangle.X - offset, canvasRectangle.Y - offset, reflectionDiameter, reflectionDiameter);
+            var reflectionPath = new GraphicsPath();
+            reflectionPath.AddEllipse(whiteRect);
+            var reflectionBrush = new PathGradientBrush(reflectionPath)
+            {
+                CenterColor = _reflectionColor,
+                SurroundColors = _surroundColor
+            };
+
+            g.FillEllipse(reflectionBrush, whiteRect);
+
+            // Draw the border
+            g.SetClip(canvasRectangle);
+            if (On) g.DrawEllipse(new Pen(Color.FromArgb(85, Color.Black), 1F), canvasRectangle);
+        }
+    }
 }
