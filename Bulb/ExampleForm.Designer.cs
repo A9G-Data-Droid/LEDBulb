@@ -1,5 +1,8 @@
-﻿namespace Bulb {
-	partial class ExampleForm {
+﻿using Bulb;
+
+namespace BulbExample
+{
+    partial class ExampleForm {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -71,7 +74,7 @@
 			this.ledBulb5.Padding = new System.Windows.Forms.Padding(3);
 			this.ledBulb5.Size = new System.Drawing.Size(25, 30);
 			this.ledBulb5.TabIndex = 4;
-			this.ledBulb5.Click += new System.EventHandler(this.ledBulb_Click);
+			this.ledBulb5.Click += new System.EventHandler(this.LedBulb_Click);
 			// 
 			// ledBulb2
 			// 
@@ -82,7 +85,7 @@
 			this.ledBulb2.Padding = new System.Windows.Forms.Padding(3);
 			this.ledBulb2.Size = new System.Drawing.Size(25, 30);
 			this.ledBulb2.TabIndex = 1;
-			this.ledBulb2.Click += new System.EventHandler(this.ledBulb_Click);
+			this.ledBulb2.Click += new System.EventHandler(this.LedBulb_Click);
 			// 
 			// ledBulb3
 			// 
@@ -93,7 +96,7 @@
 			this.ledBulb3.Padding = new System.Windows.Forms.Padding(3);
 			this.ledBulb3.Size = new System.Drawing.Size(25, 30);
 			this.ledBulb3.TabIndex = 2;
-			this.ledBulb3.Click += new System.EventHandler(this.ledBulb_Click);
+			this.ledBulb3.Click += new System.EventHandler(this.LedBulb_Click);
 			// 
 			// ledBulb4
 			// 
@@ -104,7 +107,7 @@
 			this.ledBulb4.Padding = new System.Windows.Forms.Padding(3);
 			this.ledBulb4.Size = new System.Drawing.Size(25, 30);
 			this.ledBulb4.TabIndex = 3;
-			this.ledBulb4.Click += new System.EventHandler(this.ledBulb_Click);
+			this.ledBulb4.Click += new System.EventHandler(this.LedBulb_Click);
 			// 
 			// ledBulb1
 			// 
@@ -115,7 +118,7 @@
 			this.ledBulb1.Padding = new System.Windows.Forms.Padding(3);
 			this.ledBulb1.Size = new System.Drawing.Size(25, 30);
 			this.ledBulb1.TabIndex = 0;
-			this.ledBulb1.Click += new System.EventHandler(this.ledBulb_Click);
+			this.ledBulb1.Click += new System.EventHandler(this.LedBulb_Click);
 			// 
 			// ledBulb19
 			// 
@@ -127,7 +130,7 @@
 			this.ledBulb19.Padding = new System.Windows.Forms.Padding(5, 3, 5, 3);
 			this.ledBulb19.Size = new System.Drawing.Size(34, 30);
 			this.ledBulb19.TabIndex = 14;
-			this.ledBulb19.Click += new System.EventHandler(this.ledBulb_Click);
+			this.ledBulb19.Click += new System.EventHandler(this.LedBulb_Click);
 			// 
 			// ledBulb17
 			// 
@@ -138,7 +141,7 @@
 			this.ledBulb17.Padding = new System.Windows.Forms.Padding(5, 3, 5, 3);
 			this.ledBulb17.Size = new System.Drawing.Size(34, 30);
 			this.ledBulb17.TabIndex = 10;
-			this.ledBulb17.Click += new System.EventHandler(this.ledBulb_Click);
+			this.ledBulb17.Click += new System.EventHandler(this.LedBulb_Click);
 			// 
 			// ledBulb18
 			// 
@@ -149,7 +152,7 @@
 			this.ledBulb18.Padding = new System.Windows.Forms.Padding(5, 3, 5, 3);
 			this.ledBulb18.Size = new System.Drawing.Size(34, 30);
 			this.ledBulb18.TabIndex = 8;
-			this.ledBulb18.Click += new System.EventHandler(this.ledBulb_Click);
+			this.ledBulb18.Click += new System.EventHandler(this.LedBulb_Click);
 			// 
 			// ledBulb16
 			// 
@@ -160,7 +163,7 @@
 			this.ledBulb16.Padding = new System.Windows.Forms.Padding(5, 3, 5, 3);
 			this.ledBulb16.Size = new System.Drawing.Size(34, 30);
 			this.ledBulb16.TabIndex = 7;
-			this.ledBulb16.Click += new System.EventHandler(this.ledBulb_Click);
+			this.ledBulb16.Click += new System.EventHandler(this.LedBulb_Click);
 			// 
 			// ledBulb15
 			// 
@@ -171,7 +174,7 @@
 			this.ledBulb15.Padding = new System.Windows.Forms.Padding(5, 3, 5, 3);
 			this.ledBulb15.Size = new System.Drawing.Size(34, 30);
 			this.ledBulb15.TabIndex = 11;
-			this.ledBulb15.Click += new System.EventHandler(this.ledBulb_Click);
+			this.ledBulb15.Click += new System.EventHandler(this.LedBulb_Click);
 			// 
 			// ledBulb14
 			// 
@@ -182,7 +185,7 @@
 			this.ledBulb14.Padding = new System.Windows.Forms.Padding(5, 3, 5, 3);
 			this.ledBulb14.Size = new System.Drawing.Size(34, 30);
 			this.ledBulb14.TabIndex = 12;
-			this.ledBulb14.Click += new System.EventHandler(this.ledBulb_Click);
+			this.ledBulb14.Click += new System.EventHandler(this.LedBulb_Click);
 			// 
 			// ledBulb13
 			// 
@@ -193,7 +196,7 @@
 			this.ledBulb13.Padding = new System.Windows.Forms.Padding(5, 3, 5, 3);
 			this.ledBulb13.Size = new System.Drawing.Size(34, 30);
 			this.ledBulb13.TabIndex = 13;
-			this.ledBulb13.Click += new System.EventHandler(this.ledBulb_Click);
+			this.ledBulb13.Click += new System.EventHandler(this.LedBulb_Click);
 			// 
 			// ledBulb6
 			// 
@@ -205,7 +208,7 @@
 			this.ledBulb6.Padding = new System.Windows.Forms.Padding(5, 3, 5, 3);
 			this.ledBulb6.Size = new System.Drawing.Size(34, 30);
 			this.ledBulb6.TabIndex = 15;
-			this.ledBulb6.Click += new System.EventHandler(this.ledBulb_Click);
+			this.ledBulb6.Click += new System.EventHandler(this.LedBulb_Click);
 			// 
 			// ledBulb7
 			// 
@@ -218,14 +221,14 @@
 			this.ledBulb7.Padding = new System.Windows.Forms.Padding(10);
 			this.ledBulb7.Size = new System.Drawing.Size(188, 164);
 			this.ledBulb7.TabIndex = 16;
-			this.ledBulb7.Click += new System.EventHandler(this.ledBulb7_Click);
+			this.ledBulb7.Click += new System.EventHandler(this.LedBulb7_Click);
 			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-			this.BackgroundImage = global::Bulb.Properties.Resources.woodback1;
+			this.BackgroundImage = global::BulbExample.Properties.Resources.woodback1;
 			this.ClientSize = new System.Drawing.Size(424, 224);
 			this.Controls.Add(this.flowLayoutPanel1);
 			this.Controls.Add(this.ledBulb7);
