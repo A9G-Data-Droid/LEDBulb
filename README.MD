@@ -4,6 +4,9 @@ By Steve Marsh On 2013-04-05
 ## Original Source
 https://www.codeproject.com/articles/114122/a-simple-vector-based-led-user-control
 
+![image](https://user-images.githubusercontent.com/26984068/191117540-cf64c502-8d2a-4e4e-b7c8-de4d22329fc8.png)
+
+
 ## Introduction
 The LEDBulb is a .NET user control for Windows Forms that emulates an LED light. Its purpose is to provide a sleek looking representation of an LED light that is sizable, has a transparent background and can be set to different colors.
 
@@ -18,6 +21,7 @@ this.Controls.Add(bulb);
 ## Sizeable
 I recently needed to add a custom user control to a Window Forms project of mine that would represent an LED bulb commonly seen on household electronics. After a quick search, most of the existing controls I found were ugly and used static images, which means they wouldn’t scale well. This control uses the System.Drawing.Drawing2D namespace to draw a vector image so that it not only looks clean but will also scale to any size without affecting the image quality.
 
+![image](https://user-images.githubusercontent.com/26984068/191117565-2dc38b37-884e-4f1c-a0b0-c7ee5ce8527e.png)
 
 
 Rendering the control starts with drawing a solid circle with our background color. Then we draw a radial gradient over it with our highlight color, transitioning to transparent. To draw the reflection, we draw another radial gradient, from white to transparent, but in a smaller rectangle shifted up and left. To prevent the white gradient from showing up outside the bulb, we set the clip parameter to the bounds of our original circle. 
@@ -68,6 +72,9 @@ this.DarkColor = ControlPaint.Dark(_this.Color);
 this.DarkDarkColor = ControlPaint.DarkDark(_this.Color);
 ```
 
+![image](https://user-images.githubusercontent.com/26984068/191117626-a8f406b9-c9fc-4972-85f4-d55c4e63e82f.png)
+
+![image](https://user-images.githubusercontent.com/26984068/191117637-4295be6e-32a0-4bad-a53a-a50cb6eb5dcc.png)
 
 
 ## Blink
@@ -78,6 +85,9 @@ led.Blink(2000); // Slow blink
 led.Blink(500);  // Fast blink
 led.Blink(0);    // Turn off blinking
 ```
+
+![image](https://user-images.githubusercontent.com/26984068/191117684-075c84b9-4072-4608-b5ed-7d81e6b6c521.png)
+
 
 ## Points of Interest 
 This control uses double-buffering by drawing its image to an off-screen bitmap first, then sending the final rendering to the client. Double buffering creates a smoother drawing of the control and avoids flicker when moving or re-sizing. The code to accomplish this is below.
