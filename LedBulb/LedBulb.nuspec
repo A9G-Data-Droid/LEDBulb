@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <icon>LedBulb.png</icon>
+    <projectUrl>https://github.com/A9G-Data-Droid/LEDBulb</projectUrl>
+    <description>$description$</description>
+    <releaseNotes>Initial release of LEDBulb on NuGet.</releaseNotes>
+    <copyright>$copyright$</copyright>
+    <tags>winforms control led</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.8" />
+      <group targetFramework="net48" />  
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="LedBulb.png" target="" />
+  </files>
+</package>
